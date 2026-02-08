@@ -1,2 +1,4 @@
 node_modules
 bun.lock
+serviceAccountKey.json
+.env

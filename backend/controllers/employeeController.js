@@ -1,5 +1,10 @@
-function sayHelloemp(req, res) {
-  res.send("Hello employee");
-}
+import { db } from "../config/fb.js";
+import { FieldValue } from "firebase-admin/firestore";
 
-export { sayHelloemp };
+export const getPendingReqs = async (req, res) => {
+  res.status(200).json({ message: "successful fetch" });
+};
+
+export const changeReq = async (req, res) => {
+  res.status(200).json({ message: "successful change" });
+};

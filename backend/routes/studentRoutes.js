@@ -1,8 +1,7 @@
 import express from "express";
-import { sayHello } from "../controllers/studentController.js";
+import { postRequest } from "../controllers/studentController.js";
 
 const studentrouter = express.Router();
 
-studentrouter.get("/hello", sayHello);
-
+studentrouter.post("/permission-request", postRequest);
 export default studentrouter;

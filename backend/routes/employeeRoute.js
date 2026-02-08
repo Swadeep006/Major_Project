@@ -1,7 +1,11 @@
 import express from "express";
-import { sayHelloemp } from "../controllers/employeeController.js"
+import {
+  getPendingReqs,
+  changeReq,
+} from "../controllers/employeeController.js";
 
 const employeerouter = express.Router();
 
-employeerouter.get("/helloemployee",sayHelloemp)
+employeerouter.get("/permission-requests/", getPendingReqs);
+employeerouter.patch("/perission-requests/:id", changeReq);
 export default employeerouter;

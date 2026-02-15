@@ -1,78 +1,58 @@
-import { Button } from '@/components/ui/button';
-import { Icon } from '@/components/ui/icon';
-import { Text } from '@/components/ui/text';
-import { Link, Stack } from 'expo-router';
-import { MoonStarIcon, StarIcon, SunIcon } from 'lucide-react-native';
-import { useColorScheme } from 'nativewind';
-import * as React from 'react';
-import { Image, type ImageStyle, View } from 'react-native';
+import React, { useState } from 'react';
+import { View, Alert } from 'react-native';
+import { useRouter } from 'expo-router';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const LOGO = {
-  light: require('@/assets/images/react-native-reusables-light.png'),
-  dark: require('@/assets/images/react-native-reusables-dark.png'),
-};
+// 1. Import your Firebase Auth instance
+import { auth } from '../firebaseConfig';
+import { api } from '@/lib/api';
 
-const SCREEN_OPTIONS = {
-  title: 'React Native Reusables',
-  headerTransparent: true,
-  headerRight: () => <ThemeToggle />,
-};
+// 2. Import the Reusable component
+import { SignInForm } from '@/components/ui/sign-in-form';
 
-const IMAGE_STYLE: ImageStyle = {
-  height: 76,
-  width: 76,
-};
+export default function LoginScreen() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
-export default function Screen() {
-  const { colorScheme } = useColorScheme();
+  const handleLogin = async (data: any) => {
+    setLoading(true);
+    try {
+      // 1. Firebase Authentication Logic
+      const userCredential = await signInWithEmailAndPassword(auth, data.email, data.password);
+      const uid = userCredential.user.uid;
 
-  return (
-    <>
-      <Stack.Screen options={SCREEN_OPTIONS} />
-      <View className="flex-1 items-center justify-center gap-8 p-4">
-        <View className="flex-row gap-2">
-          <Link href="https://reactnativereusables.com" asChild>
-            <Button >
-              <Text>Browse the Docs</Text>
-            </Button>
-          </Link>
-          <Link href="/login">
-            <Button>
-              <Text>Login</Text>
-            </Button>
-          </Link>
-           <Link href="/register">
-            <Button>
-              <Text>Register</Text>
-            </Button>
-          </Link>
-          <Link href="https://github.com/founded-labs/react-native-reusables" asChild>
-            <Button variant="ghost">
-              <Text>Star the Repo</Text>
-              <Icon as={StarIcon} />
-            </Button>
-          </Link>
-        </View>
-      </View>
-    </>
-  );
-}
+      // 2. Fetch User Profile to get Role
+      const profile = await api.getUserProfile(uid);
 
-const THEME_ICONS = {
-  light: SunIcon,
-  dark: MoonStarIcon,
-};
+      // 3. Store User Session (Basic)
+      await AsyncStorage.setItem('user', JSON.stringify({ uid, ...profile }));
 
-function ThemeToggle() {
-  const { colorScheme, toggleColorScheme } = useColorScheme();
+      Alert.alert('Success', `Welcome ${profile.name}!`);
+
+      // 4. Navigate based on Role
+      if (profile.role === 'student') {
+        router.replace('/student');
+      } else if (profile.role === 'incharge') {
+        router.replace('/incharge');
+      } else if (profile.role === 'hod') {
+        router.replace('/HOD');
+      } else if (profile.role === 'security') {
+        router.replace('/security');
+      } else {
+        Alert.alert('Error', 'Unknown role');
+      }
+
+    } catch (error: any) {
+      Alert.alert('Login Error', (error as any).code || error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <Button
-      onPressIn={toggleColorScheme}
-      size="icon"
-      variant="ghost"
-      className="ios:size-9 rounded-full web:mx-4">
-      <Icon as={THEME_ICONS[colorScheme ?? 'light']} className="size-5" />
-    </Button>
+    <View className="flex-1 justify-center bg-background p-6">
+      <SignInForm onSubmit={handleLogin} isLoading={loading} />
+    </View>
   );
 }

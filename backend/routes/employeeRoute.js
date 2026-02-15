@@ -1,11 +1,16 @@
 import express from "express";
 import {
-  getPendingReqs,
-  changeReq,
+  getEmployeeRequests,
+  updateRequestStatus,
+  verifyCode,
+  markExit
 } from "../controllers/employeeController.js";
 
 const employeerouter = express.Router();
 
-employeerouter.get("/permission-requests/", getPendingReqs);
-employeerouter.patch("/perission-requests/:id", changeReq);
+employeerouter.get("/requests", getEmployeeRequests);
+employeerouter.patch("/requests/:id", updateRequestStatus);
+employeerouter.post("/verify-code", verifyCode); // Security
+employeerouter.post("/mark-exit", markExit);     // Security
+
 export default employeerouter;

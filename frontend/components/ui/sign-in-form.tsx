@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
-import { navigate } from 'expo-router/build/global-state/routing';
+import { useRouter } from 'expo-router';
 import { Text } from '@/components/ui/text';
 
 interface SignInFormProps {
@@ -16,6 +16,7 @@ interface SignInFormProps {
 
 // ✅ FIX 1: Destructure props using { onSubmit, isLoading }
 export function SignInForm({ onSubmit, isLoading }: SignInFormProps) {
+  const router = useRouter();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const passwordInputRef = React.useRef<TextInput>(null);
@@ -77,7 +78,7 @@ export function SignInForm({ onSubmit, isLoading }: SignInFormProps) {
             Don't have an account?{' '}
             <Pressable
               onPress={() => {
-                navigate('/register');
+                router.push('/register');
               }}>
               <Text className="text-sm underline underline-offset-4">Sign Up</Text>
             </Pressable>

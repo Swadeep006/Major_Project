@@ -60,7 +60,7 @@ export function SignUpForm() {
                 returnKeyType="send"
                 onSubmitEditing={onSubmit}
               />
-              
+
             </View>
             <Button className="w-full" onPress={onSubmit}>
               <Text>Continue</Text>
@@ -70,12 +70,12 @@ export function SignUpForm() {
             Already have an account?{' '}
             <Pressable
               onPress={() => {
-                navigate('/login')
+                navigate('/')
               }}>
               <Text className="text-sm underline underline-offset-4">Sign in</Text>
             </Pressable>
           </Text>
-         
+
         </CardContent>
       </Card>
     </View>

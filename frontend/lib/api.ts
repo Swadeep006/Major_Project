@@ -3,7 +3,9 @@ import { Platform } from 'react-native';
 // Adjust this based on your environment
 // 10.0.2.2 is for Android Emulator
 // 192.168.29.196 is your local LAN IP (for physical devices)
-const DEV_API_URL = 'http://192.168.29.196:5000';
+const DEV_API_URL = Platform.OS === 'web'
+    ? 'http://localhost:5000'
+    : 'http://10.16.62.172:5000';
 
 // For physical device, you'd need your LAN IP, e.g., 'http://192.168.1.100:5000'
 

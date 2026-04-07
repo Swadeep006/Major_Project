@@ -4,38 +4,58 @@ import { getAuth } from "firebase-admin/auth";
 import dotenv from "dotenv";
 import fs from "fs";
 
-// Load environment variables from .env
+// Load environment variables
 dotenv.config();
 
 let app;
 
-// Robust check for credentials
-let credPath = process.env.GOOGLE_APPLICATION_CREDENTIALS;
-if (credPath) {
-  credPath = credPath.replace(/['"]+/g, '');
+let cred = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+
+// Remove quotes if accidentally added
+if (cred) {
+  cred = cred.replace(/['"]+/g, '');
 }
 
-console.log(`Debug Cred Path: ${credPath}`);
+console.log("Debug Cred:", cred ? "Found" : "Not Found");
 
 try {
-  if (credPath && fs.existsSync(credPath)) {
-    const serviceAccount = JSON.parse(fs.readFileSync(credPath, 'utf8'));
-    app = initializeApp({
-      credential: cert(serviceAccount)
-    });
-    console.log("Firebase (cert) initialized");
-  } else {
-    console.log("Using default credentials");
+  if (cred) {
+    // 🔥 Case 1: Render (JSON string)
+    if (cred.trim().startsWith("{")) {
+      const serviceAccount = JSON.parse(cred);
+
+      app = initializeApp({
+        credential: cert(serviceAccount),
+      });
+
+      console.log("✅ Firebase initialized using ENV JSON");
+    } 
+    // 🧊 Case 2: Local (file path)
+    else if (fs.existsSync(cred)) {
+      const serviceAccount = JSON.parse(fs.readFileSync(cred, "utf8"));
+
+      app = initializeApp({
+        credential: cert(serviceAccount),
+      });
+
+      console.log("✅ Firebase initialized using file path");
+    } 
+    else {
+      throw new Error("❌ Invalid GOOGLE_APPLICATION_CREDENTIALS");
+    }
+  } 
+  // ⚙️ Case 3: Default credentials (fallback)
+  else {
     app = initializeApp({
       credential: applicationDefault(),
     });
-    console.log("Firebase (default) initialized");
+
+    console.log("⚙️ Firebase initialized using default credentials");
   }
 } catch (error) {
-  console.error("Firebase Init Error:", error);
-  // process.exit(1); Don't exit, let user see error in nodemon loop
+  console.error("🔥 Firebase Init Error:", error);
 }
 
-// Export the services for use in your controllers
+// Export services
 export const db = getFirestore(app);
-export const auth = getAuth(app); 
+export const auth = getAuth(app);

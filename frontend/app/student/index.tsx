@@ -21,6 +21,10 @@ import {
     DialogClose
 } from '@/components/ui/dialog';
 import { api } from '@/lib/api';
+import { Header } from '@/components/common/Header';
+import { LoadingScreen } from '@/components/common/LoadingScreen';
+import { EmptyState } from '@/components/common/EmptyState';
+import { RequestCard } from '@/components/common/RequestCard';
 
 export default function StudentDashboard() {
     const router = useRouter();
@@ -119,45 +123,19 @@ export default function StudentDashboard() {
         }
     };
 
-    const statusColors: Record<string, string> = {
-        'Accepted': 'text-green-600',
-        'Approved': 'text-green-600',
-        'Rejected': 'text-red-600',
-        'Completed': 'text-blue-600',
-        'Pending': 'text-yellow-600'
-    }
-
-    const getStatusColor = (status: string) => {
-        return statusColors[status] || 'text-gray-600';
-    };
-
-    const getCardBorderColor = (status: string) => {
-        if (status === 'Approved' || status === 'Accepted') return 'border-green-200 bg-green-50/50';
-        if (status === 'Rejected') return 'border-red-200 bg-red-50/50';
-        if (status === 'Pending') return 'border-yellow-200 bg-yellow-50/50';
-        return 'border-border';
-    }
-
     const filteredRequests = Array.isArray(requests) ? requests : [];
 
     if (loading) {
-        return (
-            <View className="flex-1 justify-center items-center">
-                <ActivityIndicator size="large" />
-            </View>
-        );
+        return <LoadingScreen message="Loading dashboard..." />;
     }
 
     return (
         <SafeAreaView className="flex-1 bg-background px-4 pt-4">
-            <View className="flex-row justify-between items-center mb-4">
-                <Text className="text-xl font-bold text-primary">UniACE</Text>
-                <TouchableOpacity onPress={() => router.push('/student/profile')}>
-                    <View className="w-8 h-8 rounded-full bg-yellow-400 items-center justify-center">
-                        <Text className="text-xs font-bold">{user?.name?.charAt(0) || 'U'}</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
+            <Header
+                title="UniACE"
+                userName={user?.name}
+                onProfilePress={() => router.push('/student/profile')}
+            />
 
             <ScrollView showsVerticalScrollIndicator={false}>
                 {/* Application Form */}
@@ -237,57 +215,42 @@ export default function StudentDashboard() {
                 {/* Requests List */}
                 <View className="gap-4 pb-20">
                     {filteredRequests.map((req, index) => (
-                        <Card key={`${req.id || 'req'}-${index}`} className={getCardBorderColor(req.status)}>
-                            <CardContent className="pt-4 pb-4">
-                                <View className="flex-row justify-between mb-2">
-                                    <Text className="font-bold text-sm text-muted-foreground">ID: {(req.id || '').substring(0, 6)}</Text>
-                                    <View>
-                                        <Text className={`font-bold text-right ${getStatusColor(req.status)}`}>{req.status || 'Unknown'}</Text>
-                                        {req.status === 'Pending' && (
-                                            <Text className="text-[10px] text-muted-foreground text-right border-t border-muted-foreground/30 pt-0.5 mt-0.5">
-                                                Stage: {req.stage || 'Incharge'}
+                        <RequestCard
+                            key={`${req.id || 'req'}-${index}`}
+                            request={req}
+                            status={req.status}
+                            renderExtraDetails={() => (
+                                <View>
+                                    {req.uniqueCode && (
+                                        <View className="mt-4 bg-white/50 p-2 rounded border border-dashed border-primary">
+                                            <Text className="font-bold text-xl text-center text-primary tracking-widest">{req.uniqueCode}</Text>
+                                            <Text className="text-[10px] text-center text-muted-foreground">Use this code at security</Text>
+                                        </View>
+                                    )}
+                                    <View className="mt-2 pt-2 border-t border-border/50">
+                                        {req.remarks ? (
+                                            <Text className="text-sm text-red-500 font-medium">Remarks: {req.remarks}</Text>
+                                        ) : null}
+                                        <View className="flex-row justify-between mt-1 pt-1">
+                                            <Text className="text-[10px] text-muted-foreground">
+                                                {format(req.createdAt?._seconds ? new Date(req.createdAt._seconds * 1000) : new Date(req.createdAt || 0), 'MMM d, h:mm a')}
                                             </Text>
-                                        )}
+                                            <Text className="text-[10px] text-muted-foreground text-right">
+                                                To: {
+                                                    (facultyList && Array.isArray(facultyList)
+                                                        ? facultyList.find(f => f.id === req.inchargeId)?.name
+                                                        : null
+                                                    ) || 'Faculty'
+                                                }
+                                            </Text>
+                                        </View>
                                     </View>
                                 </View>
-
-                                <View className="space-y-1">
-                                    <Text className="font-medium">Reason: {req.reason || 'N/A'}</Text>
-                                    <Text className="text-muted-foreground">Destination: {req.destination || 'N/A'}</Text>
-                                </View>
-
-                                {req.uniqueCode && (
-                                    <View className="mt-4 bg-white/50 p-2 rounded border border-dashed border-primary">
-                                        <Text className="font-bold text-xl text-center text-primary tracking-widest">{req.uniqueCode}</Text>
-                                        <Text className="text-[10px] text-center text-muted-foreground">Use this code at security</Text>
-                                    </View>
-                                )}
-
-                                <View className="mt-2 pt-2 border-t border-border/50">
-                                    {req.remarks ? (
-                                        <Text className="text-sm text-red-500 font-medium">Remarks: {req.remarks}</Text>
-                                    ) : null}
-                                    <View className="flex-row justify-between mt-1 pt-1">
-                                        <Text className="text-[10px] text-muted-foreground">
-                                            {format(req.createdAt?._seconds ? new Date(req.createdAt._seconds * 1000) : new Date(req.createdAt || 0), 'MMM d, h:mm a')}
-                                        </Text>
-                                        <Text className="text-[10px] text-muted-foreground text-right">
-                                            To: {
-                                                (facultyList && Array.isArray(facultyList)
-                                                    ? facultyList.find(f => f.id === req.inchargeId)?.name
-                                                    : null
-                                                ) || 'Faculty'
-                                            }
-                                        </Text>
-                                    </View>
-                                </View>
-                            </CardContent>
-                        </Card>
+                            )}
+                        />
                     ))}
                     {filteredRequests.length === 0 && (
-                        <View className="mt-10 items-center">
-                            <Text className="text-muted-foreground">No requests found</Text>
-                        </View>
+                        <EmptyState title="No requests found" message="You haven't submitted any gateway requests yet." />
                     )}
                 </View>
             </ScrollView>

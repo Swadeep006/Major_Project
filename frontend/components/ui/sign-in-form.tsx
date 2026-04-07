@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Pressable, type TextInput, View } from 'react-native';
+import { Pressable, type TextInput, View, Image } from 'react-native';
 import { SocialConnections } from '@/components/ui/social-connections';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -46,7 +46,7 @@ export function SignInForm({ onSubmit, isLoading }: SignInFormProps) {
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
-                placeholder="m@example.com"
+                placeholder="user@example.com"
                 value={email}
                 onChangeText={setEmail} // ✅ FIX 3: Capture email
                 keyboardType="email-address"

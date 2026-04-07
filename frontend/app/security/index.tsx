@@ -11,6 +11,8 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { api } from '@/lib/api';
+import { Header } from '@/components/common/Header';
+import { RequestCard } from '@/components/common/RequestCard';
 
 export default function SecurityDashboard() {
     const router = useRouter();
@@ -68,15 +70,11 @@ export default function SecurityDashboard() {
 
     return (
         <SafeAreaView className="flex-1 bg-background px-4 pt-4">
-            {/* Header */}
-            <View className="flex-row justify-between items-center mb-8">
-                <Text className="text-xl font-bold text-primary">UniACE</Text>
-                <TouchableOpacity onPress={() => router.push('/security/profile')}>
-                    <View className="w-8 h-8 rounded-full bg-yellow-400 items-center justify-center">
-                        <Text className="text-xs font-bold">S</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
+            <Header
+                title="UniACE"
+                userName="Security"
+                onProfilePress={() => router.push('/security/profile')}
+            />
 
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View className="items-center mb-8">
@@ -91,7 +89,7 @@ export default function SecurityDashboard() {
                         onChangeText={setCode}
                     />
 
-                    <Button className="w-full bg-blue-300 rounded-xl h-12 mb-6" onPress={handleVerify} disabled={verifying}>
+                    <Button className="w-full bg-primary rounded-xl h-12 mb-6" onPress={handleVerify} disabled={verifying}>
                         {verifying ? (
                             <ActivityIndicator color="#fff" />
                         ) : (
@@ -101,37 +99,29 @@ export default function SecurityDashboard() {
                 </View>
 
                 {verifiedRequest && (
-                    <Card className="border-2 border-primary/20 bg-white shadow-sm mb-6">
-                        <CardContent className="p-4 space-y-4">
-                            {/* Request Details Section */}
-                            <View className="space-y-2">
-                                <Text className="text-xs text-muted-foreground">Request Id : {(verifiedRequest.requestId || '').substring(0, 4)}</Text>
-                                <Text className="text-xs text-muted-foreground">Applied On : {formatDate(verifiedRequest.createdAt)}</Text>
-                                <Text className="text-xs font-bold">Reason : {verifiedRequest.reason}</Text>
-                                <Text className="text-xs font-bold">Destination : {verifiedRequest.destination}</Text>
-                                <Text className="text-xs text-muted-foreground mt-2">
-                                    Forwarded HOD: <Text className="text-primary font-medium">{verifiedRequest.hodName || 'HOD'}</Text>
-                                </Text>
-
-                                {/* Remarks Box style */}
-                                <View className="border border-border rounded-lg p-2 mt-1">
-                                    <Text className="text-xs font-medium">Remarks : <Text className="font-normal">{verifiedRequest.remarks || 'None'}</Text></Text>
+                    <View className="mb-6">
+                        <RequestCard
+                            request={verifiedRequest}
+                            status={verifiedRequest.status || 'Accepted'}
+                            renderExtraDetails={() => (
+                                <View>
+                                    <Text className="text-xs text-muted-foreground mt-2">
+                                        Forwarded HOD: <Text className="text-primary font-medium">{verifiedRequest.hodName || 'HOD'}</Text>
+                                    </Text>
+                                    <View className="border border-border rounded-lg p-2 mt-1 mb-2 bg-muted/10">
+                                        <Text className="text-xs font-medium">Remarks : <Text className="font-normal">{verifiedRequest.remarks || 'None'}</Text></Text>
+                                    </View>
                                 </View>
-                            </View>
-
-                            {/* Student Details Section big font */}
-                            <View className="mt-4 pt-4 border-t-2 border-dashed border-border/50 space-y-1">
-                                <Text className="text-xl font-bold">Student Name: {verifiedRequest.name}</Text> // Accessing flat data from backend spread
-                                <Text className="text-lg font-bold text-muted-foreground">Roll No: {verifiedRequest.rollNo}</Text>
-                                <Text className="text-lg font-bold text-muted-foreground">Year&Section: {verifiedRequest.yearSection}</Text>
-                            </View>
-
-                            <Button className="w-full mt-4 bg-green-500 rounded-xl" onPress={handleMarkExit}>
-                                <Text className="text-white font-bold tracking-widest">ALLOW EXIT</Text>
-                            </Button>
-
-                        </CardContent>
-                    </Card>
+                            )}
+                            renderActions={() => (
+                                <View className="mt-4 pt-4 border-t-2 border-dashed border-border/50">
+                                    <Button className="w-full bg-primary rounded-xl" onPress={handleMarkExit}>
+                                        <Text className="text-primary-foreground font-bold tracking-widest">ALLOW EXIT</Text>
+                                    </Button>
+                                </View>
+                            )}
+                        />
+                    </View>
                 )}
 
                 <TouchableOpacity

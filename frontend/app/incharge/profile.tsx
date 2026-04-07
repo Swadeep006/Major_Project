@@ -12,6 +12,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
 import { auth } from '@/firebaseConfig';
+import { Header } from '@/components/common/Header';
+import { LoadingScreen } from '@/components/common/LoadingScreen';
 
 export default function InchargeProfile() {
     const router = useRouter();
@@ -116,26 +118,20 @@ export default function InchargeProfile() {
     };
 
     if (loading) {
-        return (
-            <View className="flex-1 justify-center items-center bg-background">
-                <ActivityIndicator size="large" color="#000" />
-            </View>
-        );
+        return <LoadingScreen message="Loading profile..." />;
     }
 
     if (!user) return null;
 
     return (
         <SafeAreaView className="flex-1 bg-background" edges={['top']}>
-            {/* Header */}
-            <View className="px-4 py-3 border-b border-border flex-row items-center justify-between bg-background z-10">
-                <View className="flex-row items-center gap-2">
-                    <TouchableOpacity onPress={() => router.back()} className="p-2 -ml-2">
-                        <Icon as={ArrowLeft} size={24} className="text-foreground" />
-                    </TouchableOpacity>
-                    <Text className="text-lg font-bold text-foreground">Profile</Text>
-                </View>
-            </View>
+            <Header
+                title="Profile"
+                showBackButton
+                onBackPress={() => router.back()}
+                onProfilePress={() => { }}
+                userName={user?.name}
+            />
 
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ padding: 20 }}>
                 {/* Profile Header */}
@@ -227,11 +223,11 @@ export default function InchargeProfile() {
 
                 <Button
                     variant="outline"
-                    className="w-full border-red-200 h-12 rounded-xl flex-row items-center justify-center gap-2 bg-red-50"
+                    className="w-full border-border h-12 rounded-xl flex-row items-center justify-center gap-2 bg-background"
                     onPress={handleSignOut}
                 >
-                    <Icon as={LogOut} size={20} className="text-red-500" />
-                    <Text className="text-red-600 font-bold text-base">Log Out</Text>
+                    <Icon as={LogOut} size={20} className="text-foreground" />
+                    <Text className="text-foreground font-bold text-base" onPress={()=>router.push('/login')}>Log Out</Text>
                 </Button>
 
             </ScrollView>

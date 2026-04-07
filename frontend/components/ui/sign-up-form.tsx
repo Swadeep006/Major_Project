@@ -40,7 +40,7 @@ export function SignUpForm() {
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
-                placeholder="m@example.com"
+                placeholder="user@example.com"
                 keyboardType="email-address"
                 autoComplete="email"
                 autoCapitalize="none"

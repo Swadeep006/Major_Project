@@ -13,6 +13,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { api } from '@/lib/api';
+import { Header } from '@/components/common/Header';
+import { LoadingScreen } from '@/components/common/LoadingScreen';
 
 export default function StudentProfile() {
     const router = useRouter();
@@ -110,23 +112,20 @@ export default function StudentProfile() {
     };
 
     if (loading) {
-        return (
-            <View className="flex-1 justify-center items-center bg-background">
-                <ActivityIndicator size="large" />
-            </View>
-        );
+        return <LoadingScreen message="Loading profile..." />;
     }
 
     if (!user) return null;
 
     return (
         <SafeAreaView className="flex-1 bg-background">
-            <View className="px-4 py-3 flex-row items-center border-b border-border/50">
-                <TouchableOpacity onPress={() => router.back()} className="mr-3">
-                    <ArrowLeft size={24} color="black" />
-                </TouchableOpacity>
-                <Text className="text-xl font-bold">Profile</Text>
-            </View>
+            <Header
+                title="Profile"
+                showBackButton
+                onBackPress={() => router.back()}
+                onProfilePress={() => { }}
+                userName={user.name}
+            />
 
             <ScrollView contentContainerStyle={{ padding: 16 }} showsVerticalScrollIndicator={false}>
                 <Card className="mb-6">

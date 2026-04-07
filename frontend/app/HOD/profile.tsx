@@ -13,6 +13,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { auth } from '@/firebaseConfig';
 import { api } from '@/lib/api';
+import { Header } from '@/components/common/Header';
+import { LoadingScreen } from '@/components/common/LoadingScreen';
 
 export default function HODProfile() {
     const router = useRouter();
@@ -102,31 +104,27 @@ export default function HODProfile() {
     };
 
     if (loading) {
-        return (
-            <View className="flex-1 justify-center items-center">
-                <ActivityIndicator size="large" />
-            </View>
-        );
+        return <LoadingScreen message="Loading profile..." />;
     }
 
     if (!user) return null;
 
     return (
-        <SafeAreaView className="flex-1 bg-background px-4 pt-4">
-            {/* Header */}
-            <View className="flex-row justify-between items-center mb-6">
-                <Text className="text-xl font-bold text-white" onPress={() => router.push('/HOD')}>UniACE</Text>
-                <View className="w-8 h-8 rounded-full bg-yellow-400 items-center justify-center">
-                    <Text className="text-xs font-bold ">{user?.name?.charAt(0)}</Text>
-                </View>
-            </View>
+        <SafeAreaView className="flex-1 bg-background">
+            <Header
+                title="Profile"
+                showBackButton
+                onBackPress={() => router.back()}
+                onProfilePress={() => { }}
+                userName={user?.name}
+            />
 
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ padding: 16 }}>
                 <View className="items-center mb-8">
-                    <Text className="text-2xl font-bold text-red-500 mb-4 px-2">PROFILE</Text>
+                    <Text className="text-2xl font-bold text-foreground mb-4 px-2">PROFILE</Text>
 
-                    <View className="w-24 h-24 rounded-full bg-yellow-200 mb-4 items-center justify-center border-2 border-yellow-400">
-                        <Text className="text-4xl font-bold text-yellow-600">{user?.name?.charAt(0)}</Text>
+                    <View className="w-24 h-24 rounded-full bg-muted mb-4 items-center justify-center border-2 border-border">
+                        <Text className="text-4xl font-bold text-foreground">{user?.name?.charAt(0)}</Text>
                     </View>
 
                     <Text className="text-2xl font-bold text-center">{user?.name}</Text>
@@ -170,12 +168,12 @@ export default function HODProfile() {
                             />
                         </View>
 
-                        <Button className="mt-6 bg-blue-400 w-full rounded-xl" onPress={handleUpdate} disabled={updating}>
-                            <Text className="text-white font-bold">{updating ? 'UPDATING...' : 'UPDATE'}</Text>
+                        <Button className="mt-6 bg-primary w-full rounded-xl" onPress={handleUpdate} disabled={updating}>
+                            <Text className="text-primary-foreground font-bold">{updating ? 'Updating...' : 'Save Changes'}</Text>
                         </Button>
 
-                        <Button variant="outline" className="mt-4 border-red-200" onPress={handleSignOut}>
-                            <Text className="text-red-500">Log Out</Text>
+                        <Button variant="outline" className="mt-4 border-border" onPress={handleSignOut}>
+                            <Text className="text-foreground">Log Out</Text>
                         </Button>
                     </CardContent>
                 </Card>

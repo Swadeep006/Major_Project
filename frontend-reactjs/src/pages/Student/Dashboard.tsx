@@ -99,8 +99,8 @@ function StudentDashboardContent() {
             case 'approved': return 'bg-green-100 text-green-700 border-green-200';
             case 'rejected': return 'bg-red-100 text-red-700 border-red-200';
             case 'pending': return 'bg-yellow-100 text-yellow-700 border-yellow-200';
-            case 'exit_marked': return 'bg-blue-100 text-blue-700 border-blue-200';
-            default: return 'bg-slate-100 text-slate-700';
+            case 'exit_marked': return 'bg-blue-100 text-foreground border-blue-200';
+            default: return 'bg-muted text-foreground';
         }
     };
 
@@ -126,19 +126,19 @@ function StudentDashboardContent() {
             {/* Left Column: Form */}
             <div className="lg:col-span-1">
                 <Card className="sticky top-24 card-premium border-none shadow-md overflow-hidden">
-                    <CardHeader className="bg-slate-50/50 border-b border-slate-100">
-                        <CardTitle className="text-xl font-black flex items-center gap-2 text-slate-800">
+                    <CardHeader className="bg-muted/50 border-b border-border">
+                        <CardTitle className="text-xl font-black flex items-center gap-2 text-foreground">
                             <Plus className="h-5 w-5 text-primary" />
                             New Request
                         </CardTitle>
-                        <CardDescription className="font-bold text-slate-400 text-xs">Apply for gateway permission</CardDescription>
+                        <CardDescription className="font-bold text-muted-foreground text-xs">Apply for gateway permission</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <form onSubmit={handleApply} className="space-y-4">
                             <div className="space-y-2">
                                 <Label htmlFor="reason">Reason for Leave</Label>
                                 <div className="relative group">
-                                    <MessageSquare className="absolute left-3 top-3 h-4 w-4 text-slate-400 group-focus-within:text-primary transition-colors" />
+                                    <MessageSquare className="absolute left-3 top-3 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
                                     <Input 
                                         id="reason" 
                                         className="pl-9 input-3d"
@@ -150,9 +150,9 @@ function StudentDashboardContent() {
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="destination" className="font-bold text-slate-700">Destination</Label>
+                                <Label htmlFor="destination" className="font-bold text-muted-foreground">Destination</Label>
                                 <div className="relative group">
-                                    <MapPin className="absolute left-3 top-3 h-4 w-4 text-slate-400 group-focus-within:text-primary transition-colors" />
+                                    <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
                                     <Input 
                                         id="destination" 
                                         className="pl-9 input-3d"
@@ -201,16 +201,16 @@ function StudentDashboardContent() {
             {/* Right Column: History */}
             <div className="lg:col-span-2">
                 <div className="flex items-center justify-between mb-8">
-                    <h2 className="mobile-title-lg text-slate-800">
+                    <h2 className="mobile-title-lg text-foreground">
                         <History className="h-6 w-6 text-primary inline mr-2" />
                         My Requests
                     </h2>
-                    <Badge variant="outline" className="bg-white px-3 py-1 font-bold border-2">{requests.length} Total</Badge>
+                    <Badge variant="outline" className="bg-card px-3 py-1 font-bold border-2">{requests.length} Total</Badge>
                 </div>
 
                 <div className="space-y-4">
                     {requests.length === 0 ? (
-                        <Card className="border-dashed py-16 flex flex-col items-center justify-center text-slate-400 bg-transparent rounded-[2rem]">
+                        <Card className="border-dashed py-16 flex flex-col items-center justify-center text-muted-foreground bg-transparent rounded-[2rem]">
                             <ClipboardList className="h-16 w-16 mb-4 opacity-10" />
                             <p className="font-bold tracking-tight">No permission requests yet.</p>
                         </Card>
@@ -224,7 +224,7 @@ function StudentDashboardContent() {
                                                 {getStatusIcon(req.status)}
                                                 <span className="capitalize">{req.status}</span>
                                             </Badge>
-                                            <span className="text-xs text-slate-400">
+                                            <span className="text-xs text-muted-foreground">
                                                 {format(req.createdAt?._seconds ? new Date(req.createdAt._seconds * 1000) : new Date(req.createdAt || 0), 'MMM d, h:mm a')}
                                             </span>
                                         </div>
@@ -238,16 +238,16 @@ function StudentDashboardContent() {
 
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                         <div className="space-y-1">
-                                            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Reason</p>
-                                            <p className="text-sm font-medium text-slate-700">{req.reason}</p>
+                                            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Reason</p>
+                                            <p className="text-sm font-medium text-muted-foreground">{req.reason}</p>
                                         </div>
                                         <div className="space-y-1">
-                                            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Destination</p>
-                                            <p className="text-sm font-medium text-slate-700">{req.destination}</p>
+                                            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Destination</p>
+                                            <p className="text-sm font-medium text-muted-foreground">{req.destination}</p>
                                         </div>
                                         <div className="space-y-1">
-                                            <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Assigned Faculty</p>
-                                            <p className="text-sm font-medium text-slate-700">{req.inchargeName || 'N/A'}</p>
+                                            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Assigned Faculty</p>
+                                            <p className="text-sm font-medium text-muted-foreground">{req.inchargeName || 'N/A'}</p>
                                         </div>
                                         {req.remarks && (
                                             <div className="space-y-1">
@@ -273,7 +273,7 @@ function StudentDashboardContent() {
 
 export default function StudentDashboard() {
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-background">
             <Navbar />
             <main className="container mx-auto px-4 py-8 max-w-5xl">
                 <Routes>

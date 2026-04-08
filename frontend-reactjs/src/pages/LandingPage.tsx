@@ -27,7 +27,7 @@ export default function LandingPage() {
       <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <img src="/favicon_ace.png" alt="ACE Logo" className="h-10 w-10 md:h-12 md:w-12 object-contain" />
+            <img src="/favicon_ace.png" alt="ACE Logo" className="h-10 w-10 md:h-12 md:w-12 rounded-full object-cover" />
             <span className="text-lg sm:text-xl font-black text-primary tracking-tighter">UniACE</span>
           </div>
           <div className="hidden md:flex items-center gap-8 text-sm font-bold text-muted-foreground uppercase tracking-widest">
@@ -204,7 +204,7 @@ export default function LandingPage() {
       {/* Department Section */}
       <section id="department" className="py-24 bg-background relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-           <img src="/favicon_ace.png" alt="ACE Logo" className="h-16 w-16 sm:h-20 sm:w-20 mx-auto mb-8 opacity-90 drop-shadow-lg" />
+           <img src="/favicon_ace.png" alt="ACE Logo" className="h-16 w-16 sm:h-20 sm:w-20 rounded-full mx-auto mb-8 opacity-90 drop-shadow-lg object-cover" />
            <h2 className="mobile-title-lg mb-6 text-foreground">Department of CSE (AI&ML)</h2>
            <p className="text-muted-foreground text-sm sm:text-lg max-w-3xl mx-auto mb-10">
              Our department is dedicated to fostering innovation and excellence in the field of Artificial Intelligence. Part of ACE Engineering College, we strive to produce world-class engineers.
@@ -228,7 +228,7 @@ export default function LandingPage() {
            <div className="flex flex-col md:flex-row items-center justify-between gap-10 border-b border-white/10 pb-12 mb-12">
               <div className="text-center md:text-left">
                 <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
-                   <img src="/favicon_ace.png" alt="ACE Logo" className="h-8 w-8 sm:h-10 sm:w-10" />
+                   <img src="/favicon_ace.png" alt="ACE Logo" className="h-8 w-8 sm:h-10 sm:w-10 rounded-full object-cover" />
                    <span className="text-xl sm:text-2xl font-black tracking-tighter">UniACE</span>
                 </div>
                 <p className="text-slate-400 text-sm max-w-sm">

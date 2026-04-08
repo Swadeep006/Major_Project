@@ -9,25 +9,22 @@ export default function Navbar() {
     const navigate = useNavigate();
 
     return (
-        <nav className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
+        <nav className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-md">
             <div className="container mx-auto flex h-16 items-center justify-between px-4">
                 <div className="flex items-center gap-2">
-                    <div className="bg-primary h-8 w-8 rounded-lg flex items-center justify-center">
-                        <span className="text-primary-foreground font-bold">U</span>
-                    </div>
                     <span className="text-xl font-bold tracking-tight">UniACE</span>
                 </div>
 
                 <div className="hidden md:flex items-center gap-6">
                     {/* Navigation Links based on role could go here */}
-                    <span className="text-sm font-medium text-slate-500 capitalize">{user?.role} Portal</span>
+                    <span className="text-sm font-medium text-muted-foreground capitalize">{user?.role} Portal</span>
                 </div>
 
                 <div className="flex items-center gap-2">
                     <ThemeToggle />
                     <div className="mr-4 hidden sm:block text-right">
                         <p className="text-sm font-medium leading-none">{user?.name}</p>
-                        <p className="text-xs text-slate-500">{user?.email}</p>
+                        <p className="text-xs text-muted-foreground">{user?.email}</p>
                     </div>
                     
                     <Button variant="ghost" className='border' size="icon" onClick={() => navigate(`/${user?.role}/profile`)}>

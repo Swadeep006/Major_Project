@@ -89,32 +89,32 @@ export default function ProfilePage() {
                 <Button variant="ghost" size="icon" onClick={() => navigate(-1)} className="rounded-full">
                     <ArrowLeft className="h-5 w-5" />
                 </Button>
-                <h1 className="text-3xl font-extrabold text-slate-900 capitalize">{user.role} Profile</h1>
+                <h1 className="text-3xl font-extrabold text-foreground capitalize">{user.role} Profile</h1>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Profile Summary Card */}
-                <Card className="lg:col-span-1 shadow-md border-primary/5 h-fit bg-white">
+                <Card className="lg:col-span-1 shadow-md border-primary/5 h-fit bg-card">
                     <CardContent className="pt-8 pb-8 flex flex-col items-center text-center">
                         <div className="h-24 w-24 rounded-full bg-primary/10 flex items-center justify-center border-4 border-white shadow-lg mb-4 text-4xl font-black text-primary">
                             {user?.name?.charAt(0).toUpperCase()}
                         </div>
-                        <h2 className="text-xl font-bold text-slate-900">{user?.name}</h2>
-                        <p className="text-sm text-slate-500 font-medium capitalize mb-4">{user?.role} Portal</p>
+                        <h2 className="text-xl font-bold text-foreground">{user?.name}</h2>
+                        <p className="text-sm text-muted-foreground font-medium capitalize mb-4">{user?.role} Portal</p>
                         
                         <div className="w-full space-y-3 pt-4 border-t border-slate-100">
                             <div className="flex items-center justify-between text-xs px-2">
-                                <span className="text-slate-400 font-bold uppercase tracking-wider">ID / Roll No</span>
-                                <span className="text-slate-700 font-semibold">{user?.rollNumber || user?.employeeId || 'N/A'}</span>
+                                <span className="text-muted-foreground font-bold uppercase tracking-wider">ID / Roll No</span>
+                                <span className="text-muted-foreground font-semibold">{user?.rollNumber || user?.employeeId || 'N/A'}</span>
                             </div>
                             <div className="flex items-center justify-between text-xs px-2">
-                                <span className="text-slate-400 font-bold uppercase tracking-wider">Department</span>
-                                <span className="text-slate-700 font-semibold">{user?.department || 'N/A'}</span>
+                                <span className="text-muted-foreground font-bold uppercase tracking-wider">Department</span>
+                                <span className="text-muted-foreground font-semibold">{user?.department || 'N/A'}</span>
                             </div>
                             {user?.yearSection && (
                                 <div className="flex items-center justify-between text-xs px-2">
-                                    <span className="text-slate-400 font-bold uppercase tracking-wider">Class</span>
-                                    <span className="text-slate-700 font-semibold">{user.yearSection}</span>
+                                    <span className="text-muted-foreground font-bold uppercase tracking-wider">Class</span>
+                                    <span className="text-muted-foreground font-semibold">{user.yearSection}</span>
                                 </div>
                             )}
                         </div>
@@ -124,8 +124,8 @@ export default function ProfilePage() {
                 {/* Edit Form */}
                 <div className="lg:col-span-2 space-y-6">
                     <form onSubmit={handleUpdateProfile}>
-                        <Card className="shadow-md border-primary/5 overflow-hidden bg-white">
-                            <CardHeader className="bg-slate-50/50">
+                        <Card className="shadow-md border-primary/5 overflow-hidden bg-card">
+                            <CardHeader className="bg-muted/50">
                                 <CardTitle className="flex items-center gap-2 text-lg">
                                     <Shield className="h-5 w-5 text-primary" />
                                     Account Settings
@@ -136,19 +136,19 @@ export default function ProfilePage() {
                                 {/* Details Grid */}
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-6 border-b border-slate-100">
                                     <div className="space-y-2">
-                                        <Label className="text-slate-400 uppercase text-[10px] font-bold tracking-widest flex items-center gap-1.5">
+                                        <Label className="text-muted-foreground uppercase text-[10px] font-bold tracking-widest flex items-center gap-1.5">
                                             <Mail className="h-3 w-3" /> Email Address
                                         </Label>
-                                        <div className="text-sm font-medium text-slate-600 bg-slate-50 px-3 py-2 rounded-md border border-slate-100 truncate">
+                                        <div className="text-sm font-medium text-muted-foreground bg-muted/50 px-3 py-2 rounded-md border border-border truncate">
                                             {user?.email}
                                         </div>
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="phone" className="text-slate-400 uppercase text-[10px] font-bold tracking-widest flex items-center gap-1.5">
+                                        <Label htmlFor="phone" className="text-muted-foreground uppercase text-[10px] font-bold tracking-widest flex items-center gap-1.5">
                                             <Phone className="h-3 w-3" /> Phone Number
                                         </Label>
                                         <div className="relative">
-                                            <Phone className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+                                            <Phone className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
                                             <Input 
                                                 id="phone" 
                                                 placeholder="Enter phone number" 
@@ -162,7 +162,7 @@ export default function ProfilePage() {
 
                                 {/* Password Section */}
                                 <div className="space-y-4">
-                                    <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                                    <h3 className="text-sm font-bold text-foreground flex items-center gap-2">
                                         <Lock className="h-4 w-4 text-primary" />
                                         Security Check
                                     </h3>
@@ -205,7 +205,7 @@ export default function ProfilePage() {
                                     </div>
                                 </div>
                             </CardContent>
-                            <CardFooter className="bg-slate-50/50 justify-end py-4">
+                            <CardFooter className="bg-muted/50 justify-end py-4">
                                 <Button type="submit" disabled={loading} className="px-8 font-bold tracking-tight shadow-sm">
                                     {loading ? (
                                         <>

@@ -130,8 +130,8 @@
 
   /* 3D Input Utility */
   .input-3d {
-    @apply border-2 transition-all duration-200 focus:ring-0 focus:border-primary px-4 py-3 bg-white;
-    box-shadow: 0 2px 0 0 var(--grey-200);
+    @apply border-2 border-border transition-all duration-200 focus:ring-0 focus:border-primary px-4 py-3 bg-background;
+    box-shadow: 0 2px 0 0 theme('colors.border');
     border-radius: 1rem;
   }
 
@@ -141,12 +141,12 @@
 
   /* Premium Card Styles */
   .card-premium {
-    @apply rounded-[1.5rem] border-2 border-slate-100 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)];
+    @apply rounded-[1.5rem] border-2 border-border bg-card shadow-sm transition-all duration-300 hover:shadow-md;
   }
 
   /* Progress Bar */
   .progress-premium {
-    @apply h-3 rounded-full bg-slate-100 overflow-hidden;
+    @apply h-3 rounded-full bg-secondary/20 overflow-hidden;
   }
   .progress-fill-green {
     @apply h-full bg-[var(--student-green)] rounded-full transition-all duration-500;

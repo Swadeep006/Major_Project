@@ -103,12 +103,12 @@ function InchargeDashboardContent() {
             {/* Header Section */}
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8">
                 <div>
-                    <h1 className="mobile-title-lg text-slate-900 tracking-tight mb-2">Incharge Portal</h1>
-                    <p className="text-slate-500 font-medium text-sm">Manage student gateway requests for your department</p>
+                    <h1 className="mobile-title-lg text-foreground tracking-tight mb-2">Incharge Portal</h1>
+                    <p className="text-muted-foreground font-medium text-sm">Manage student gateway requests for your department</p>
                 </div>
                 <div className="flex items-center gap-3 w-full lg:w-auto">
                     <div className="relative flex-1 lg:w-80 group">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 group-focus-within:text-primary transition-colors" />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
                         <Input 
                             placeholder="Search student or roll no..." 
                             className="pl-9 input-3d w-full" 
@@ -121,7 +121,7 @@ function InchargeDashboardContent() {
 
             {/* Stats Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
-                <Card className="card-premium border-none bg-orange-50/50">
+                <Card className="card-premium border-none bg-orange-50/50 dark:bg-orange-500/10">
                     <CardHeader className="pb-2">
                         <CardTitle className="text-[10px] font-black text-orange-600 uppercase tracking-[0.2em]">Pending Approval</CardTitle>
                     </CardHeader>
@@ -150,7 +150,7 @@ function InchargeDashboardContent() {
             {/* Requests List */}
             <div className="space-y-6">
                 {filteredRequests.length === 0 ? (
-                    <Card className="card-premium border-dashed py-20 flex flex-col items-center justify-center text-slate-400 bg-transparent">
+                    <Card className="card-premium border-dashed py-20 flex flex-col items-center justify-center text-muted-foreground bg-transparent">
                         <Clock className="h-16 w-16 mx-auto mb-4 opacity-10" />
                         <p className="font-bold">No requests found matching your search.</p>
                     </Card>
@@ -160,14 +160,14 @@ function InchargeDashboardContent() {
                             <div className="p-6 sm:p-8">
                                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                                     <div className="flex items-center gap-6">
-                                        <div className="bg-slate-100 h-16 w-16 rounded-3xl flex items-center justify-center shrink-0 border-2 border-slate-200/50 group-hover:rotate-6 transition-transform">
-                                            <User className="h-8 w-8 text-slate-600" />
+                                        <div className="bg-muted h-16 w-16 rounded-3xl flex items-center justify-center shrink-0 border-2 border-border/50 group-hover:rotate-6 transition-transform">
+                                            <User className="h-8 w-8 text-muted-foreground" />
                                         </div>
                                         <div>
-                                            <h3 className="text-xl font-black text-slate-900 tracking-tight mb-1">{req.studentName}</h3>
+                                            <h3 className="text-xl font-black text-foreground tracking-tight mb-1">{req.studentName}</h3>
                                             <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-                                                <Badge variant="outline" className="text-xs font-bold border-2 rounded-lg bg-slate-50">{req.rollNo}</Badge>
-                                                <span className="text-sm text-slate-500 font-bold">{req.department} • {req.yearSection}</span>
+                                                <Badge variant="outline" className="text-xs font-bold border-2 rounded-lg bg-background">{req.rollNo}</Badge>
+                                                <span className="text-sm text-muted-foreground font-bold">{req.department} • {req.yearSection}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -183,32 +183,32 @@ function InchargeDashboardContent() {
                                              <Clock className="h-3 w-3 animate-pulse" />}
                                             {req.inchargeStatus || 'Pending'}
                                         </Badge>
-                                        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest flex items-center gap-1">
+                                        <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest flex items-center gap-1">
                                             <Calendar className="h-3 w-3" />
                                             {format(req.createdAt?._seconds ? new Date(req.createdAt._seconds * 1000) : new Date(req.createdAt || 0), 'MMM d, h:mm a')}
                                         </span>
                                     </div>
                                 </div>
 
-                                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 bg-slate-50/50 p-6 rounded-[1.5rem] border-2 border-slate-100">
+                                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 bg-muted/50 p-6 rounded-[1.5rem] border-2 border-border">
                                     <div className="space-y-1">
-                                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Reason</p>
-                                        <p className="text-sm text-slate-800 font-bold">{req.reason}</p>
+                                        <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em]">Reason</p>
+                                        <p className="text-sm text-foreground font-bold">{req.reason}</p>
                                     </div>
                                     <div className="space-y-1">
-                                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Destination</p>
-                                        <p className="text-sm text-slate-800 font-bold">{req.destination}</p>
+                                        <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em]">Destination</p>
+                                        <p className="text-sm text-foreground font-bold">{req.destination}</p>
                                     </div>
                                     <div className="lg:col-span-2 space-y-1">
-                                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Student Contact</p>
-                                        <p className="text-sm text-slate-800 font-bold">{req.studentPhone || 'N/A'}</p>
+                                        <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em]">Student Contact</p>
+                                        <p className="text-sm text-foreground font-bold">{req.studentPhone || 'N/A'}</p>
                                     </div>
                                 </div>
 
                                 {req.inchargeStatus === 'Pending' ? (
-                                    <div className="mt-8 flex flex-col lg:flex-row lg:items-center gap-6 border-t border-slate-100 pt-8">
+                                    <div className="mt-8 flex flex-col lg:flex-row lg:items-end gap-4 border-t border-slate-100 dark:border-slate-800 pt-6">
                                         <div className="flex-1 space-y-2">
-                                            <Label htmlFor={`remarks-${req.id}`} className="font-bold text-slate-700 ml-1">Review Remarks</Label>
+                                            <Label htmlFor={`remarks-${req.id}`} className="font-bold text-muted-foreground ml-1">Review Remarks</Label>
                                             <Input 
                                                 id={`remarks-${req.id}`}
                                                 placeholder="Provide internal feedback..."
@@ -217,28 +217,28 @@ function InchargeDashboardContent() {
                                                 className="input-3d"
                                             />
                                         </div>
-                                        <div className="flex flex-col sm:flex-row items-center justify-end gap-3 w-full lg:w-auto shrink-0 pt-6 lg:pt-0">
+                                        <div className="flex flex-col sm:flex-row items-center justify-end gap-3 w-full lg:w-auto shrink-0 mt-4 lg:mt-0">
                                             <Button 
                                                 variant="outline" 
-                                                className="rounded-2xl h-12 w-full sm:h-14 sm:w-auto px-6 sm:px-8 font-black border-2 border-red-100 text-red-600 hover:bg-red-50"
+                                                className="rounded-xl h-10 w-full sm:h-11 sm:w-auto px-6 font-bold border-2 border-red-100 dark:border-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30"
                                                 onClick={() => handleAction(req.id, 'Rejected')}
                                             >
-                                                <XCircle className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+                                                <XCircle className="mr-2 h-4 w-4" />
                                                 Reject
                                             </Button>
                                             <Button 
-                                                className="btn-3d-green rounded-2xl h-12 w-full sm:h-14 sm:w-auto px-6 sm:px-10"
+                                                className="btn-3d-green rounded-xl h-10 w-full sm:h-11 sm:w-auto px-8 font-bold"
                                                 onClick={() => handleAction(req.id, 'Accepted')}
                                             >
-                                                <CheckCircle2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
+                                                <CheckCircle2 className="mr-2 h-4 w-4" />
                                                 Confirm Approval
                                             </Button>
                                         </div>
                                     </div>
                                 ) : (
                                     <div className="mt-6 pt-6 border-t border-slate-100 flex flex-col gap-2">
-                                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Decision Feedback</p>
-                                        <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 italic text-sm text-slate-600 font-medium">
+                                        <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em]">Decision Feedback</p>
+                                        <div className="bg-muted/50 p-4 rounded-xl border border-border italic text-sm text-muted-foreground font-medium">
                                             {req.remarks ? `"${req.remarks}"` : "No remarks provided."}
                                         </div>
                                     </div>
@@ -254,7 +254,7 @@ function InchargeDashboardContent() {
 
 export default function InchargeDashboard() {
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-background">
             <Navbar />
             <main className="container mx-auto px-4 py-8 max-w-6xl">
                 <Routes>

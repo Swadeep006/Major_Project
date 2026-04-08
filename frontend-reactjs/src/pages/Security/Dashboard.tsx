@@ -89,12 +89,12 @@ function SecurityDashboardContent() {
             <div className="max-w-4xl mx-auto py-12 animate-in fade-in duration-500">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
                 <div className="flex items-center gap-4">
-                    <Button variant="ghost" size="icon" onClick={() => setView('verification')} className="rounded-2xl h-12 w-12 bg-slate-100 hover:bg-slate-200">
+                    <Button variant="ghost" size="icon" onClick={() => setView('verification')} className="rounded-2xl h-12 w-12 bg-muted hover:bg-accent">
                         <ArrowLeft className="h-6 w-6" />
                     </Button>
                     <div>
-                        <h1 className="mobile-title-lg text-slate-900 tracking-tight leading-none mb-1">Exit History</h1>
-                        <p className="text-slate-500 font-bold text-sm tracking-tight">Audit log of successfully recorded exits</p>
+                        <h1 className="mobile-title-lg text-foreground tracking-tight leading-none mb-1">Exit History</h1>
+                        <p className="text-muted-foreground font-bold text-sm tracking-tight">Audit log of successfully recorded exits</p>
                     </div>
                 </div>
             </div>
@@ -102,12 +102,12 @@ function SecurityDashboardContent() {
                 {loadingHistory ? (
                     <div className="flex flex-col items-center justify-center py-32">
                         <Loader2 className="h-12 w-12 animate-spin text-primary opacity-20" />
-                        <p className="text-slate-400 mt-6 font-black tracking-widest uppercase text-xs">Fetching audit logs...</p>
+                        <p className="text-muted-foreground mt-6 font-black tracking-widest uppercase text-xs">Fetching audit logs...</p>
                     </div>
                 ) : history.length === 0 ? (
-                    <Card className="card-premium border-dashed py-24 text-center bg-transparent border-slate-200">
-                        <History className="h-16 w-16 mx-auto mb-6 text-slate-200 opacity-20" />
-                        <p className="text-slate-500 font-bold text-lg mb-8">No exits have been recorded yet.</p>
+                    <Card className="card-premium border-dashed py-24 text-center bg-transparent border-border">
+                        <History className="h-16 w-16 mx-auto mb-6 text-muted-foreground opacity-20" />
+                        <p className="text-muted-foreground font-bold text-lg mb-8">No exits have been recorded yet.</p>
                         <Button className="btn-3d-purple rounded-2xl h-14 px-10" onClick={() => setView('verification')}>
                             Return to Verification
                         </Button>
@@ -123,29 +123,29 @@ function SecurityDashboardContent() {
                                                 <ClipboardCheck className="h-5 w-5 text-green-700" />
                                             </div>
                                             <div>
-                                                <h3 className="font-bold text-slate-900 leading-tight">{req.studentName}</h3>
-                                                <p className="text-xs text-slate-500 font-medium">{req.rollNo || req.rollNumber}</p>
+                                                <h3 className="font-bold text-foreground leading-tight">{req.studentName}</h3>
+                                                <p className="text-xs text-muted-foreground font-medium">{req.rollNo || req.rollNumber}</p>
                                             </div>
                                         </div>
-                                        <Badge className="bg-slate-100 text-slate-600 border-none font-bold">COMPLETED</Badge>
+                                        <Badge className="bg-muted text-muted-foreground border-none font-bold">COMPLETED</Badge>
                                     </div>
 
                                     <div className="space-y-3 pt-3 border-t border-slate-50">
                                         <div className="grid grid-cols-2 gap-2 text-xs">
                                             <div className="space-y-1">
-                                                <p className="text-slate-400 font-bold uppercase tracking-widest">Reason</p>
-                                                <p className="text-slate-700 font-medium truncate">{req.reason}</p>
+                                                <p className="text-muted-foreground font-bold uppercase tracking-widest">Reason</p>
+                                                <p className="text-muted-foreground font-medium truncate">{req.reason}</p>
                                             </div>
                                             <div className="space-y-1">
-                                                <p className="text-slate-400 font-bold uppercase tracking-widest">Destination</p>
-                                                <p className="text-slate-700 font-medium truncate">{req.destination}</p>
+                                                <p className="text-muted-foreground font-bold uppercase tracking-widest">Destination</p>
+                                                <p className="text-muted-foreground font-medium truncate">{req.destination}</p>
                                             </div>
                                         </div>
-                                        <div className="bg-slate-50 rounded-md p-2 flex items-center justify-between">
-                                            <span className="text-[10px] font-bold text-slate-400 uppercase flex items-center gap-1">
+                                        <div className="bg-muted/50 rounded-md p-2 flex items-center justify-between">
+                                            <span className="text-[10px] font-bold text-muted-foreground uppercase flex items-center gap-1">
                                                 <Calendar className="h-3 w-3" /> Exit Time
                                             </span>
-                                            <span className="text-xs font-bold text-slate-700">
+                                            <span className="text-xs font-bold text-muted-foreground">
                                                 {format(req.exitTime?._seconds ? new Date(req.exitTime._seconds * 1000) : new Date(req.exitTime || 0), 'MMM d, h:mm a')}
                                             </span>
                                         </div>
@@ -165,15 +165,15 @@ function SecurityDashboardContent() {
                 <div className="bg-primary h-20 w-20 rounded-[2rem] flex items-center justify-center mx-auto mb-6 border-4 border-primary/10 shadow-2xl rotate-3">
                     <ShieldCheck className="h-10 w-10 text-white" />
                 </div>
-                <h1 className="mobile-title-lg text-slate-900 tracking-tight text-center leading-none mb-2">Security Portal</h1>
-                <p className="text-slate-500 font-bold text-sm text-center tracking-tight">Verify gateway codes and log student exits</p>
+                <h1 className="mobile-title-lg text-foreground tracking-tight text-center leading-none mb-2">Security Portal</h1>
+                <p className="text-muted-foreground font-bold text-sm text-center tracking-tight">Verify gateway codes and log student exits</p>
             </div>
 
-            <Card className="card-premium border-none shadow-xl overflow-hidden mb-8 bg-white">
-                <CardHeader className="bg-slate-50/50 border-b border-slate-100 flex flex-row items-center justify-between py-6">
+            <Card className="card-premium border-none shadow-xl overflow-hidden mb-8">
+                <CardHeader className="bg-muted/50 border-b border-border flex flex-row items-center justify-between py-6">
                     <div>
-                        <CardTitle className="text-xl font-black text-slate-800">Verification</CardTitle>
-                        <CardDescription className="font-bold text-slate-400">Enter the student's unique gateway code</CardDescription>
+                        <CardTitle className="text-xl font-black text-foreground">Verification</CardTitle>
+                        <CardDescription className="font-bold text-muted-foreground">Enter the student's unique gateway code</CardDescription>
                     </div>
                     <Button variant="ghost" onClick={() => setView('history')} className="font-bold text-primary hover:bg-primary/5 rounded-xl">
                         <History className="mr-2 h-4 w-4" /> Logs
@@ -182,9 +182,9 @@ function SecurityDashboardContent() {
                 <CardContent className="p-8">
                     <form onSubmit={handleVerify} className="space-y-6">
                         <div className="space-y-3">
-                            <Label htmlFor="code" className="text-sm font-black text-slate-700 uppercase tracking-widest ml-1">Unique Gateway Pass</Label>
+                            <Label htmlFor="code" className="text-sm font-black text-muted-foreground uppercase tracking-widest ml-1">Unique Gateway Pass</Label>
                             <div className="relative group">
-                                <KeyRound className="absolute left-4 top-1/2 -translate-y-1/2 h-6 w-6 text-slate-300 group-focus-within:text-primary transition-colors" />
+                                <KeyRound className="absolute left-4 top-1/2 -translate-y-1/2 h-6 w-6 text-muted-foreground group-focus-within:text-primary transition-colors" />
                                 <Input 
                                     id="code"
                                     placeholder="000000"
@@ -194,7 +194,7 @@ function SecurityDashboardContent() {
                                     className="pl-14 h-16 text-2xl font-black tracking-[0.5em] input-3d text-center"
                                 />
                             </div>
-                            <p className="text-[10px] text-slate-400 font-bold uppercase text-center mt-2">Codes are generated after HOD approval</p>
+                            <p className="text-[10px] text-muted-foreground font-bold uppercase text-center mt-2">Codes are generated after HOD approval</p>
                         </div>
                         <Button type="submit" className="w-full btn-3d-purple h-16 rounded-2xl text-lg font-black" disabled={verifying || code.length < 6}>
                             {verifying ? <Loader2 className="h-6 w-6 animate-spin" /> : "Verify Access Code"}
@@ -214,19 +214,19 @@ function SecurityDashboardContent() {
                                 </div>
                                 <div>
                                     <Badge className="bg-student-green text-white font-black px-3 py-1 mb-2 hover:bg-student-green">VALID PASS</Badge>
-                                    <h3 className="text-2xl font-black text-slate-900 leading-none">{verifiedRequest.name}</h3>
-                                    <p className="text-sm font-bold text-slate-500 mt-1">{verifiedRequest.rollNo || verifiedRequest.rollNumber} • {verifiedRequest.department}</p>
+                                    <h3 className="text-2xl font-black text-foreground leading-none">{verifiedRequest.name}</h3>
+                                    <p className="text-sm font-bold text-muted-foreground mt-1">{verifiedRequest.rollNo || verifiedRequest.rollNumber} • {verifiedRequest.department}</p>
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-white/60 p-6 rounded-[1.5rem] border border-student-green/10 backdrop-blur-sm mb-8 text-left">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-background/60 p-6 rounded-[1.5rem] border border-student-green/10 backdrop-blur-sm mb-8 text-left">
                                 <div className="space-y-1">
-                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Reason</p>
-                                    <p className="text-sm text-slate-800 font-bold">{verifiedRequest.reason}</p>
+                                    <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Reason</p>
+                                    <p className="text-sm text-foreground font-bold">{verifiedRequest.reason}</p>
                                 </div>
                                 <div className="space-y-1">
-                                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Destination</p>
-                                    <p className="text-sm text-slate-800 font-bold">{verifiedRequest.destination}</p>
+                                    <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Destination</p>
+                                    <p className="text-sm text-foreground font-bold">{verifiedRequest.destination}</p>
                                 </div>
                             </div>
 
@@ -244,7 +244,7 @@ function SecurityDashboardContent() {
             )}
 
             <div className="mt-12 text-center">
-                <Button variant="ghost" className="text-slate-500 font-bold hover:bg-white" onClick={() => setView('history')}>
+                <Button variant="ghost" className="text-muted-foreground font-bold hover:bg-accent" onClick={() => setView('history')}>
                     <History className="mr-2 h-4 w-4" /> View Day Analytics
                 </Button>
             </div>
@@ -254,7 +254,7 @@ function SecurityDashboardContent() {
 
 export default function SecurityDashboard() {
     return (
-        <div className="min-h-screen bg-slate-50">
+        <div className="min-h-screen bg-background">
             <Navbar />
             <main className="container mx-auto px-4">
                 <Routes>

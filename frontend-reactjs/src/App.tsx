@@ -64,7 +64,7 @@ import { ThemeProvider } from './components/theme-provider';
 
 function App() {
     return (
-        <ThemeProvider defaultTheme="system" storageKey="uniace-ui-theme">
+        <ThemeProvider defaultTheme="light" storageKey="uniace-ui-theme">
             <AuthProvider>
                 <Router>
                     <AppContent />

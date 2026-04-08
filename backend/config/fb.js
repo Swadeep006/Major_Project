@@ -11,9 +11,9 @@ let app;
 
 let cred = process.env.GOOGLE_APPLICATION_CREDENTIALS;
 
-// Remove quotes if accidentally added
+// Remove surrounding quotes if accidentally added by ENV managers
 if (cred) {
-  cred = cred.replace(/['"]+/g, '');
+  cred = cred.trim().replace(/^['"]|['"]$/g, '');
 }
 
 console.log("Debug Cred:", cred ? "Found" : "Not Found");

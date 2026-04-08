@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========== Figma Design Tokens ========== */
+:root {
+  /* Greyscale */
+  --grey-0: #FFFFFF;
+  --grey-50: #FAFAFA;
+  --grey-100: #F5F5F5;
+  --grey-200: #EEEEEE;
+  --grey-300: #E0E0E0;
+  --grey-400: #BDBDBD;
+  --grey-500: #9E9E9E;
+  --grey-600: #757575;
+  --grey-700: #616161;
+  --grey-800: #424242;
+  --grey-900: #212121;
+
+  /* Dark theme base */
+  --dark-1: #181A20;
+  --dark-2: #1F222A;
+  --dark-3: #262A35;
+  --dark-4: #35383F;
+
+  /* Background tints (light theme) */
+  --bg-purple: #F9F8FF;
+  --bg-yellow: #FFFCEB;
+  --bg-green: #F1FDF5;
+  --bg-blue: #F6F9FF;
+  --bg-teal: #F2FFFD;
+  --bg-red: #FFF7F8;
+  --bg-orange: #FFF8ED;
+
+  /* Transparent / vibrant colors */
+  --color-purple: #6949FF;
+  --color-purple-dark: #543ACC;
+  --color-yellow: #FFD300;
+  --color-green: #12D18E;
+  --color-blue: #246BFD;
+  --color-teal: #019B83;
+  --color-red: #FF5A5F;
+  --color-orange: #FF9800;
+  --color-cyan: #00BCD4;
+
+  /* Main & status */
+  --primary-hex: #6949FF;
+  --primary-border: color-mix(in srgb, var(--primary-hex) 72%, black);
+  
+  /* Student Dashboard Design System */
+  --student-green: #00BB79;
+  --student-green-light: #A8E6C8;
+  --student-green-soft: #E7F9F2;
+  --student-purple: #7C31F6;
+  --student-purple-light: #B8A3E8;
+  --student-purple-soft: #F6F3FF;
+
+  /* Shadcn Semantic Variables */
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  --primary: 251 100% 64%; /* #6949FF mapped to HSL */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 45 100% 50%; /* #FFC107 */
+  --secondary-foreground: 222.2 47.4% 11.2%;
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 45 100% 50%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 251 100% 64%;
+  --radius: 1.25rem;
+}
+
+.dark {
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --card: 224 71% 4%;
+  --card-foreground: 210 40% 98%;
+  --popover: 224 71% 4%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 251 100% 64%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 35 100% 50%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 223 47% 11%;
+  --muted-foreground: 215.4 16.3% 56.9%;
+  --accent: 216 34% 17%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 216 34% 17%;
+  --input: 216 34% 17%;
+  --ring: 251 100% 64%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground transition-colors duration-300;
+    font-family: 'Nunito', sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  /* 3D Button Utility */
+  .btn-3d {
+    @apply relative transition-all duration-100 active:translate-y-[2px] active:shadow-none font-bold tracking-wide;
+    box-shadow: 0 4px 0 0 theme('colors.primary.DEFAULT' / 70%);
+  }
+  
+  .btn-3d-purple {
+    @apply bg-[var(--color-purple)] text-white hover:bg-[var(--color-purple-dark)];
+    box-shadow: 0 4px 0 0 #4C30E0;
+  }
+
+  .btn-3d-green {
+    @apply bg-[var(--color-green)] text-white hover:opacity-90;
+    box-shadow: 0 4px 0 0 #0EAC76;
+  }
+
+  /* 3D Input Utility */
+  .input-3d {
+    @apply border-2 transition-all duration-200 focus:ring-0 focus:border-primary px-4 py-3 bg-white;
+    box-shadow: 0 2px 0 0 var(--grey-200);
+    border-radius: 1rem;
+  }
+
+  .input-3d:focus-within {
+    box-shadow: 0 4px 0 0 theme('colors.primary.DEFAULT' / 20%);
+  }
+
+  /* Premium Card Styles */
+  .card-premium {
+    @apply rounded-[1.5rem] border-2 border-slate-100 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)];
+  }
+
+  /* Progress Bar */
+  .progress-premium {
+    @apply h-3 rounded-full bg-slate-100 overflow-hidden;
+  }
+  .progress-fill-green {
+    @apply h-full bg-[var(--student-green)] rounded-full transition-all duration-500;
+  }
+
+  /* Landing Page Utilities */
+  .hero-gradient {
+    background: radial-gradient(circle at top right, rgba(105, 73, 255, 0.05), transparent),
+                radial-gradient(circle at bottom left, rgba(105, 73, 255, 0.02), transparent);
+  }
+}
+
+/* Responsiveness Audit Classes */
+@layer utilities {
+  .mobile-text-sm {
+    @apply text-xs sm:text-sm lg:text-base;
+  }
+  .mobile-title-lg {
+    @apply text-lg sm:text-xl lg:text-3xl font-black;
+  }
+  .mobile-container {
+    @apply px-4 sm:px-6 lg:px-8 mx-auto max-w-7xl;
+  }
+}
